@@ -1,11 +1,11 @@
-FROM golang
+FROM golang:alpine
 
-# Copy the local package files to the container's workspace.
-ADD . /go/src/github.com/kevinlutzer/personal-website-api
-RUN go build . 
+RUN mkdir /app
+COPY . /app
 
-# Run the outyet command by default when the container starts.
-ENTRYPOINT /go/bin/personal-website-api
+WORKDIR /app
 
-# Document that the service listens on port 8080.
+RUN go build -o main . 
+
+ENTRYPOINT [ "/app/main" ]
 EXPOSE 8080
