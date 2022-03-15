@@ -5,7 +5,7 @@ COPY . /app
 
 WORKDIR /app
 
-RUN go build -o main . 
+RUN go build -o main cmd/main.go
 
 ENTRYPOINT [ "/app/main" ]
-EXPOSE 8080
+EXPOSE 80

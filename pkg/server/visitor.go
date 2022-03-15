@@ -2,7 +2,6 @@ package server
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/kevinlutzer/personal-website-api/pkg/apperror"
@@ -61,12 +60,12 @@ func (s *server) CreateVisitor(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := s.visitorService.Create(ip); err != nil {
-		fmt.Println(err.Error())
+	// if err := s.visitorService.Create(ip); err != nil {
+	// 	fmt.Println(err.Error())
 
-		s.writeErrorResponse(w, err)
-		return
-	}
+	// 	s.writeErrorResponse(w, err)
+	// 	return
+	// }
 
-	w.Write([]byte("Success"))
+	w.Write([]byte(ip))
 }

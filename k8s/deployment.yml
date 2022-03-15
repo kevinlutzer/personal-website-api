@@ -4,7 +4,7 @@ metadata:
   name: personal-website-api
   namespace: personal-website-api
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: personal-website-api
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: personal-website-api
-        image: kevinlutzer/personal-website-api:latest
+        image: kevinlutzer/personal-website-api:1.0.1
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 80
