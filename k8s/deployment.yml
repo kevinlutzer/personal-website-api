@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: personal-website-api
+  namespace: personal-website-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: personal-website-api
+  template:
+    metadata:
+      labels:
+        app: personal-website-api
+    spec:
+      containers:
+      - name: personal-website-api
+        image: kevinlutzer/personal-website-api:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
