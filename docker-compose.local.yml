@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  mysql:
+    platform: linux/x86_64
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'personal-website'
+      MYSQL_USER: 'personal-website-api'
+      MYSQL_PASSWORD: 'JWUyMfDMGIJpgxQ2a0/9henWzWqRGYuPygbUxtEnIhM='
+      MYSQL_ROOT_PASSWORD: 'JWUyMfDMGIJpgxQ2a0/9henWzWqRGYuPygbUxtEnIhM='
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - personal-website-mysql-data:/var/lib/mysql
+volumes:
+  personal-website-mysql-data:
