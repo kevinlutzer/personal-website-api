@@ -14,8 +14,8 @@ type Server interface {
 	ReplaceVisitor(w http.ResponseWriter, r *http.Request)
 }
 
-func NewServer() Server { // visitorService visitor.Service) Server {
+func NewServer(visitorService visitor.Service) Server {
 	return &server{
-		// visitorService: visitorService,
+		visitorService: visitorService,
 	}
 }

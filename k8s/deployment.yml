@@ -15,9 +15,7 @@ spec:
     spec:
       containers:
       - name: personal-website-api
-        image: kevinlutzer/personal-website-api:1.0.1
+        image: kevinlutzer/personal-website-api:1.0.3
         imagePullPolicy: Always
         ports:
         - containerPort: 80
-
-
