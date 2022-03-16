@@ -26,6 +26,7 @@ func mySQLErrorCode(err error) error {
 // interface for exposed methods
 type Repo interface {
 	Create(vistor *Visitor) error
+	Update(ip string, visitor_type string) error
 }
 
 func NewRepo(db *gorm.DB) Repo {
@@ -38,6 +39,18 @@ func NewRepo(db *gorm.DB) Repo {
 
 func (s *repo) Create(vistor *Visitor) error {
 	if tx := s.db.Create(vistor); tx.Error != nil {
+		return mySQLErrorCode(tx.Error)
+	}
+
+	return nil
+}
+
+func (s *repo) Update(ip string, visitor_type string) error {
+	tx := s.db.Model(&Visitor{}).
+		Where("ip = ?", ip).
+		Update("type", "hello")
+
+	if tx.Error != nil {
 		return mySQLErrorCode(tx.Error)
 	}
 

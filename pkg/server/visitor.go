@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/kevinlutzer/personal-website-api/pkg/apperror"
@@ -30,6 +31,13 @@ var errorTypeToCode = map[apperror.ErrorType]int{
 	apperror.AlreadyExists: 409,
 }
 
+func (s *server) writeSuccessResponse(w http.ResponseWriter, msg string) {
+	json, _ := json.Marshal(SuccessResponse{Success: msg})
+
+	w.WriteHeader(200)
+	w.Write(json)
+}
+
 func (s *server) writeErrorResponse(w http.ResponseWriter, err error) {
 	var code int
 	var ok bool
@@ -53,19 +61,20 @@ func (s *server) writeErrorResponse(w http.ResponseWriter, err error) {
 	w.Write(json)
 }
 
-func (s *server) CreateVisitor(w http.ResponseWriter, r *http.Request) {
+func (s *server) ReplaceVisitor(w http.ResponseWriter, r *http.Request) {
 	ip, err := s.getIPFromHeader((r.Header))
 	if err != nil {
 		s.writeErrorResponse(w, err)
 		return
 	}
 
-	// if err := s.visitorService.Create(ip); err != nil {
-	// 	fmt.Println(err.Error())
+	if err := s.visitorService.Replace(ip, "Other"); err != nil {
+		fmt.Println(err.Error())
 
-	// 	s.writeErrorResponse(w, err)
-	// 	return
-	// }
+		s.writeErrorResponse(w, err)
+		return
+	}
 
-	w.Write([]byte(ip))
+	s.writeSuccessResponse(w, "Successfully replaced the visitor information")
+
 }

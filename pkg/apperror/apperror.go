@@ -26,3 +26,11 @@ func NewError(errorType ErrorType, msg string) error {
 		Msg:  msg,
 	}
 }
+
+func IsError(errorType ErrorType, err error) bool {
+	apperr, ok := err.(*RequestError)
+	if ok {
+		return apperr.Type == errorType
+	}
+	return false
+}
