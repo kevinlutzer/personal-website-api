@@ -1,5 +1,5 @@
-from time import time
-from tokenize import String
+import datetime
+import pytz
 from sqlalchemy import VARCHAR, Column, Date, create_engine
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -30,7 +30,7 @@ class Visitor(Base):
         return Visitor(
             ip=ip,
             type=type,
-            created=time.time()
+            created=datetime.datetime.utcnow().replace(tzinfo=pytz.utc)
         )
 
 Base.metadata.create_all(engine)
