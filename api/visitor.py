@@ -10,9 +10,24 @@ class CreateVisitorPutSchema(Schema):
 
 class CreateVisitor(Resource):
 
-    def get(self):
+    def put(self):
         form = CreateVisitorPutSchema.to_python(request.json)
 
+        with Session() as session:
+            db = Visitor.create(request.headers.get("X-Forwarded-For"), form['type'])
+            session.add(db)
+            session.commit()
+
+            app.logger.info("Created the visitor successfully")
+
+        return {
+            "result": "successfully created the visitor"
+        }
+
+class GetVisitorQuantities(Resource):
+
+    def get(self):
+        
         with Session() as session:
             db = Visitor.create(request.headers.get("X-Forwarded-For"), form['type'])
             session.add(db)

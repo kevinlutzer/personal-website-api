@@ -4,6 +4,7 @@ from sqlalchemy import VARCHAR, Column, Date, create_engine
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+# from sqlalchemy.`` import fun
 import os
 
 engine = None
@@ -32,5 +33,9 @@ class Visitor(Base):
             type=type,
             created=datetime.datetime.utcnow().replace(tzinfo=pytz.utc)
         )
+
+    # @classmethod
+    # def get_type_quantities(cls, session: Session): 
+    #     return session.query(cls.).
 
 Base.metadata.create_all(engine)

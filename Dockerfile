@@ -1,4 +1,4 @@
-FROM python:alpine3.10
+FROM python:alpine3.15
 
 RUN mkdir /app
 COPY . /app
@@ -13,6 +13,8 @@ RUN apk add g++ zlib zlib-dev jpeg-dev
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
+# RUN apk add --no-cache --upgrade bash
+
 EXPOSE 5000
 
-CMD [ "python", "app.py" ]
+CMD [ "python", "app.py"]

@@ -1,0 +1,15 @@
+#development
+.vscode/
+docker-compose.local.yml
+# ca_cert/
+k8s/
+
+# python
+__pycache__/
+.python-version
+venv/
+
+# admin 
+LICENSE
+README.md
+
