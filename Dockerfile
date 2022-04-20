@@ -17,4 +17,6 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
+ENV SERVER_MODE=prod
+
 CMD [ "python", "app.py"]

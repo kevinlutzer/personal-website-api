@@ -11,8 +11,17 @@ engine = None
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
+
+DEVEL = os.environ.get("SERVER_MODE") == 'dev'
+
+db_host = "lin-1617-1707-mysql-primary-private.servers.linodedb.net"
+if DEVEL:
+    db_host = "lin-1617-1707-mysql-primary.servers.linodedb.net"
+
+print("db_host\n\n", db_host, "db_host")
+
 engine = create_engine(
-                        "mysql+pymysql://%s:%s@%s:%d/%s?ssl_ca=ca_cert/core-ca-certificate.crt" % ("linroot", "b7YVdx1jFLPM&nfR", "lin-1617-1707-mysql-primary.servers.linodedb.net", 3306, "personalwebsite"),
+                        "mysql+pymysql://%s:%s@%s:%d/%s?ssl_ca=ca_cert/core-ca-certificate.crt" % ("linroot", "b7YVdx1jFLPM&nfR", db_host, 3306, "personalwebsite"),
                         echo='DEVEL' in os.environ,
                         pool_size=15)
 
@@ -33,9 +42,5 @@ class Visitor(Base):
             type=type,
             created=datetime.datetime.utcnow().replace(tzinfo=pytz.utc)
         )
-
-    # @classmethod
-    # def get_type_quantities(cls, session: Session): 
-    #     return session.query(cls.).
 
 Base.metadata.create_all(engine)

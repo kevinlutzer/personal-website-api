@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: personal-website-api
-  namespace: personal-website-api
+  # namespace: personal-website-api
 spec:
   replicas: 1
   selector:
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: personal-website-api
-        image: kevinlutzer/personal-website-api:latest
+        image: kevinlutzer/personal-website-api:python4
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
