@@ -4,24 +4,22 @@ from sqlalchemy import VARCHAR, Column, Date, create_engine
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-# from sqlalchemy.`` import fun
 import os
+
+from settings import DB_CA_CERT_PATH, DB_HOST, DB_MODE_DEV, DB_NAME, DB_PASSWORD, DB_USER
+
+print(DB_CA_CERT_PATH)
+
+DNS = "mysql+pymysql://%s:%s@%s:%d/%s?ssl_ca=%s" % (DB_USER, DB_PASSWORD, DB_HOST, 3306, DB_NAME, DB_CA_CERT_PATH)
+if DB_MODE_DEV:
+    DNS = "mysql+pymysql://%s:%s@%s:%d/%s" % (DB_USER, DB_PASSWORD, DB_HOST, 3306, DB_NAME)
 
 engine = None
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
-
-DEVEL = os.environ.get("SERVER_MODE") == 'dev'
-
-db_host = "lin-1617-1707-mysql-primary-private.servers.linodedb.net"
-if DEVEL:
-    db_host = "lin-1617-1707-mysql-primary.servers.linodedb.net"
-
-print("db_host\n\n", db_host, "db_host")
-
 engine = create_engine(
-                        "mysql+pymysql://%s:%s@%s:%d/%s?ssl_ca=ca_cert/core-ca-certificate.crt" % ("linroot", "b7YVdx1jFLPM&nfR", db_host, 3306, "personalwebsite"),
+                        DNS,
                         echo='DEVEL' in os.environ,
                         pool_size=15)
 

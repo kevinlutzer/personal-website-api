@@ -13,10 +13,9 @@ RUN apk add g++ zlib zlib-dev jpeg-dev
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# RUN apk add --no-cache --upgrade bash
-
 EXPOSE 5000
 
-ENV SERVER_MODE=prod
+ENV API_MODE=prod
+ENV DB_MODE=prod
 
 CMD [ "python", "app.py"]

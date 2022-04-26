@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: personal-website-api
-  # namespace: personal-website-api
+  namespace: personal-website-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: personal-website-api
@@ -14,8 +14,37 @@ spec:
         app: personal-website-api
     spec:
       containers:
-      - name: personal-website-api
-        image: kevinlutzer/personal-website-api:python4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 5000
+        - name: personal-website-api
+          image: kevinlutzer/personal-website-api:python5
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: db-ca-cert
+              mountPath: "/etc/db-ca-cert"
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-creds
+                  key: db_user
+                  optional: true
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-creds
+                  key: db_password
+                  optional: true
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: db-host
+                  key: db-host
+                  optional: true
+      volumes:
+        - name: db-ca-cert
+          secret:
+            secretName: db-ca-cert
+            defaultMode: 0400
+
+          

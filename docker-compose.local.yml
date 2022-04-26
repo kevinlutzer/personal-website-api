@@ -5,15 +5,15 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: 'personal-website'
+      MYSQL_DATABASE: 'personalwebsite'
       MYSQL_USER: 'personal-website-api'
-      MYSQL_PASSWORD: 'JWUyMfDMGIJpgxQ2a0/9henWzWqRGYuPygbUxtEnIhM='
-      MYSQL_ROOT_PASSWORD: 'JWUyMfDMGIJpgxQ2a0/9henWzWqRGYuPygbUxtEnIhM='
+      MYSQL_PASSWORD: '6SxFen6wvZTzv7Knh5vv9QCgVo0='
+      MYSQL_ROOT_PASSWORD: '6SxFen6wvZTzv7Knh5vv9QCgVo0='
     ports:
       - '3306:3306'
     expose:
       - '3306'
     volumes:
-      - personal-website-mysql-data:/var/lib/mysql
+      - personal-website-api-mysql-data:/var/lib/mysql
 volumes:
-  personal-website-mysql-data:
+  personal-website-api-mysql-data:
