@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: core-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  defaultBackend:
+    service:
+      name: personal-website-api
+      port:
+        number: 80
+  rules:
+  - host: api.kevin.lutzer.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: personal-website-api
+            port:
+              number: 80
